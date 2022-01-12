@@ -74,7 +74,7 @@ const App = () => {
               message: `Added ${returnedPerson.name}`,
               status: 'success'
             })
-            setTimeout(() => {setPopup(null)}, 1000000)
+            setTimeout(() => {setPopup(null)}, 3000)
             setNewName('')
             setNewNumber('')
           })
