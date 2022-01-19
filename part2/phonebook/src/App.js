@@ -78,6 +78,15 @@ const App = () => {
             setNewName('')
             setNewNumber('')
           })
+          .catch(error => {
+            setPopup({
+              message: error.response.data.error,
+              status: 'error'
+            })
+            setTimeout(() => {setPopup(null)}, 3000)
+            setNewName('')
+            setNewNumber('')
+          })
       }
     }
   }
