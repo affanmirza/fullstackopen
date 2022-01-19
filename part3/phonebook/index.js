@@ -49,7 +49,7 @@ app.get('/api/persons/:id', (request, response, next) => {
   .catch(error => next(error))
 })
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
   if (!body.name || !body.number) {
@@ -62,9 +62,12 @@ app.post('/api/persons', (request, response) => {
     name: body.name,
     number: body.number
   })
-  person.save().then(savedPerson => {
-    response.json(savedPerson)
+  person.save()
+  .then(savedPerson => savedPerson.toJSON())
+  .then(savedAndFormattedPerson => {
+    response.json(savedAndFormattedPerson)
   })
+  .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
@@ -110,6 +113,9 @@ const errorHandler = (error, request, response, next) => {
 
   else if (error.name === 'ReferenceError') {
     return response.status(400).send({ error: 'ID not found' })
+  }
+  else if (error.name === 'ValidationError') {
+    return response.status(400).send({ error: error.message })
   }
 
   next(error)
