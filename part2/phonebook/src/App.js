@@ -74,16 +74,7 @@ const App = () => {
               message: `Added ${returnedPerson.name}`,
               status: 'success'
             })
-            setTimeout(() => {setPopup(null)}, 3000)
-            setNewName('')
-            setNewNumber('')
-          })
-          .catch(error => {
-            setPopup({
-              message: error.response.data.error,
-              status: 'error'
-            })
-            setTimeout(() => {setPopup(null)}, 3000)
+            setTimeout(() => {setPopup(null)}, 1000000)
             setNewName('')
             setNewNumber('')
           })
